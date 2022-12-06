@@ -2,7 +2,7 @@
   <div>
     <form class="flex gap-4 items-end justify-center">
       <div>
-        <p class="text-lg font-bold">Add Todo</p>
+        <p class="text-lg font-bold">Add Todo {{ user.displayName }}</p>
         <input
           type="text"
           v-model="myTodo.title"
@@ -21,10 +21,13 @@
 </template>
 
 <script setup lang="ts">
+import { getAuth, User } from "@firebase/auth";
 import { Ref, ref } from "vue";
 import { useTodoStore } from "../store/todoStore";
 import { Todo } from "../types/todoType";
 
+const auth = getAuth();
+const user: Ref<User> = ref(auth.currentUser!);
 const myTodo: Ref<Todo> = ref({
   title: "",
   completed: false,
