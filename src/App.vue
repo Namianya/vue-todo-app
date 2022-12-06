@@ -23,4 +23,6 @@ import { useTodoStore } from "./store/todoStore";
 const { todos } = storeToRefs(useTodoStore());
 </script>
 
-<style scoped></style>
+<style scoped>
+
+</style>

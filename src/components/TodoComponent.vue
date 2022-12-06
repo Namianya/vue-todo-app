@@ -10,7 +10,6 @@
     </div>
   </div>
 </template>
-🤪
 
 <script setup lang="ts">
 import { useTodoStore } from "../store/todoStore";
