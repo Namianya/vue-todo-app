@@ -22,24 +22,32 @@
 
 <script setup lang="ts">
 import { getAuth, User } from "@firebase/auth";
+import { addDoc, collection, getFirestore, Timestamp } from "@firebase/firestore";
 import { Ref, ref } from "vue";
 import { useTodoStore } from "../store/todoStore";
 import { Todo } from "../types/todoType";
 
 const auth = getAuth();
+const firestore = getFirestore();
+const db = collection(firestore, "todos");
+
 const user: Ref<User> = ref(auth.currentUser!);
 const myTodo: Ref<Todo> = ref({
   title: "",
   completed: false,
+  createdAt: Timestamp.now(),
+  userId: user.value.uid,
 });
 
 const todoStore = useTodoStore();
 
 const addTodo = () => {
   if (myTodo.value.title.length > 0) {
-    todoStore.addTodo({
+    addDoc(db, {
       title: myTodo.value.title,
       completed: false,
+      createdAt: Timestamp.now(),
+      userId: user.value.uid,
     });
     myTodo.value.title = "";
   }
